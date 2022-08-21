@@ -1,5 +1,7 @@
 package com.example.back.services;
 
+import com.example.back.models.dto.UserDTO;
+import com.example.back.models.dto.dtoMapper;
 import com.example.back.models.user.Users;
 import com.example.back.repositories.RoleRepository;
 import com.example.back.repositories.UserRepository;
@@ -38,7 +40,9 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public Users createUser(Users user) {
+    public Users createUser(UserDTO userDTO) {
+        System.out.println(userDTO);
+        Users user = dtoMapper.mapUserDTOToUsers(userDTO);
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         user.setActive(true);
         user.setRoles(new HashSet<>(List.of(roleRepository.getRoleByRoleName("USER"))));

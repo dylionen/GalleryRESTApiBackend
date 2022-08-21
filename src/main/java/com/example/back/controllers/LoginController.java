@@ -3,10 +3,12 @@ package com.example.back.controllers;
 import com.example.back.jwt.models.JwtRequest;
 import com.example.back.jwt.models.JwtResponse;
 import com.example.back.jwt.utility.JWTUtility;
+import com.example.back.models.dto.UserDTO;
 import com.example.back.models.user.Users;
 import com.example.back.services.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -14,6 +16,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -49,8 +52,9 @@ public class LoginController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Users> register(@RequestBody Users user) {
-        return ResponseEntity.ok(userService.createUser(user));
+    public ResponseEntity<Users> register(@Valid @RequestBody UserDTO userDTO) {
+        Users user = userService.createUser(userDTO);
+        return new ResponseEntity<Users>(user, HttpStatus.CREATED);
     }
 
     @GetMapping
