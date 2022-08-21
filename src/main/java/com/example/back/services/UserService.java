@@ -1,6 +1,5 @@
 package com.example.back.services;
 
-import com.example.back.models.user.Role;
 import com.example.back.models.user.Users;
 import com.example.back.repositories.RoleRepository;
 import com.example.back.repositories.UserRepository;
@@ -18,7 +17,6 @@ import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -42,8 +40,8 @@ public class UserService implements UserDetailsService {
     @Transactional
     public Users createUser(Users user) {
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        Set<Role> roles = new HashSet<>();
-        roles.add(roleRepository.getRoleByRoleName("USER"));
+        user.setActive(true);
+        user.setRoles(new HashSet<>(List.of(roleRepository.getRoleByRoleName("USER"))));
         return userRepository.save(user);
     }
 
