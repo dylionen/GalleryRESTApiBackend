@@ -23,7 +23,7 @@ public class GalleryController {
     public ResponseEntity<List<Gallery>> getAllGalleries(Principal principal) {
         log.info("Get all galleries");
         log.info("Get all galleries for: " + principal.getName());
-        log.info("Get all galleries for: " + principal.toString());
+        log.info("Get all galleries for: " + principal);
         return ResponseEntity.ok(galleryService.getAllGalleries());
     }
 
