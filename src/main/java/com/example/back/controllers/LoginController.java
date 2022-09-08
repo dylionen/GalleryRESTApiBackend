@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -60,7 +61,9 @@ public class LoginController {
 
     @PreAuthorize("hasAnyAuthority('USER')")
     @GetMapping
-    public ResponseEntity<List<Users>> getAllUsers() {
+    public ResponseEntity<List<Users>> getAllUsers(Principal principal) {
+        log.info(principal.toString());
+        log.info(principal.getName());
         return ResponseEntity.ok(userService.getAllUsers());
     }
 }

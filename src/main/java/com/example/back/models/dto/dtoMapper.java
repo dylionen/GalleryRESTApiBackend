@@ -6,11 +6,12 @@ import com.example.back.models.user.Users;
 import java.time.LocalDateTime;
 
 public class dtoMapper {
-    public static Gallery mapGalleryDTOToGallery(GalleryDTO galleryDTO) {
+    public static Gallery mapGalleryDTOToGallery(GalleryDTO galleryDTO, Users users) {
         return Gallery.builder()
                 .shortName(galleryDTO.getShortName())
                 .longName(galleryDTO.getLongName())
                 .createdDate(LocalDateTime.now())
+                .users(users)
                 .build();
     }
 

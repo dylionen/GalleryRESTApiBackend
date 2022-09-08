@@ -52,4 +52,9 @@ public class UserService implements UserDetailsService {
     public List<Users> getAllUsers() {
         return userRepository.findAll();
     }
+
+    public Users getUserByUsername(String userName){
+        Optional<Users> user = userRepository.findByUserName(userName);
+        return Optional.of(user).orElseThrow(RuntimeException::new).get();
+    }
 }
