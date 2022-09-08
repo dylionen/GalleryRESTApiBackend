@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -54,9 +55,10 @@ public class LoginController {
     @PostMapping("/register")
     public ResponseEntity<Users> register(@Valid @RequestBody UserDTO userDTO) {
         Users user = userService.createUser(userDTO);
-        return new ResponseEntity<Users>(user, HttpStatus.CREATED);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasAnyAuthority('USER')")
     @GetMapping
     public ResponseEntity<List<Users>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
