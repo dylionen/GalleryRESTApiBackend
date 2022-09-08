@@ -1,11 +1,9 @@
 package com.example.back.models;
 
+import com.example.back.models.user.Users;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,6 +19,9 @@ public class Gallery {
     private String shortName;
     private String longName;
     private LocalDateTime createdDate;
+    @ManyToOne
+    @JoinColumn(name = "users_id")
+    private Users users;
 
 
 }

@@ -45,7 +45,12 @@ CREATE TABLE IF NOT EXISTS public.gallery
     created_date timestamp without time zone,
     long_name character varying(255) COLLATE pg_catalog."default",
     short_name character varying(255) COLLATE pg_catalog."default",
-    CONSTRAINT gallery_pkey PRIMARY KEY (id)
+    users_id bigint NOT NULL,
+    CONSTRAINT gallery_pkey PRIMARY KEY (id),
+    CONSTRAINT fkt4v0rrweyk393bdgt1dgfdfgx FOREIGN KEY (users_id)
+        REFERENCES public.users (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
 );
 
 --changeset dylionen:5
